@@ -1,5 +1,5 @@
 (function() {
-    console.log("%c[EXT-INJECT] Interceptor Active", "color: blue; font-weight: bold;");
+    console.log("%c[EXT-INJECT] Interceptor Active (네트워크 가로채기 모드)", "color: blue; font-weight: bold;");
 
     // --- Fetch 가로채기 ---
     const originalFetch = window.fetch;
@@ -11,7 +11,6 @@
             console.log("%c[EXT-INJECT] Subtitle Fetch Detected!", "color: green;");
             const clone = response.clone();
             clone.json().then(data => {
-                console.log("[EXT-INJECT] Raw JSON Object:", data); // 여기서 JSON 직접 확인 가능
                 window.postMessage({ type: "YT_SUB_DATA", payload: data }, "*");
             }).catch(e => console.error("[EXT-INJECT] JSON Parse Error (Fetch)", e));
         }
@@ -34,7 +33,6 @@
                 console.log("%c[EXT-INJECT] Subtitle XHR Detected!", "color: green;");
                 try {
                     const data = JSON.parse(this.responseText);
-                    console.log("[EXT-INJECT] Raw JSON Object:", data); // 여기서 JSON 직접 확인 가능
                     window.postMessage({ type: "YT_SUB_DATA", payload: data }, "*");
                 } catch (e) {
                     console.error("[EXT-INJECT] JSON Parse Error (XHR)", e);
