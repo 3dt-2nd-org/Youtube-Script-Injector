@@ -114,7 +114,12 @@ function connectSSE(videoId) {
 
     eventSource.addEventListener("complete", (e) => {
         const data = JSON.parse(e.data);
-        console.log("%c[EXT-CONTENT] 🎯 최종 분석 리포트 수신!", "background: green; color: white; padding: 2px 5px;");
+        console.log("%c[EXT-CONTENT] 🎯 최종 분석 리포트 수신 완료!", "background: green; color: white; padding: 2px 5px;");
+        
+        // DOM 렌더링을 생략하고 수신된 JSON 데이터 구조만 콘솔에 출력 (향후 UI 통합 시 참고용)
+        console.log("📥 [수신된 리포트 데이터 상세]:");
+        console.dir(data);
+
         eventSource.close(); 
     });
 
